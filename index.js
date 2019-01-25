@@ -1,18 +1,32 @@
 const http = require('http');
+const https = require('https');
 const url = require('url');
 const StringDecoder = require('string_decoder').StringDecoder;
 const config = require('./config');
-
+const fs = require('fs');
 //Instantiate http server
 const httpServer = http.createServer(function (req, res) {
 unifiedServer(req, res);
 });
 
-httpServer.listen(config.port, function (req, res) {
+//start http server 
+httpServer.listen(config.httpPort, function (req, res) {
     console.log(`Server running in ${config.env} on ${config.port}`);
 });
 
 
+const httpsServerOptions = {
+    'key': fs.readFileSync('./https/key.pem'),
+    'cert': fs.readFileSync('./https/cert.pem')}
+//instantiate https server 
+const httpsServer = https.createServer(httpsServerOptions, function (req, res) {
+    unifiedServer(req, res);
+});
+
+//start https server 
+httpsServer.listen(config.httpsPort, function (req, res) {
+    console.log(`Server running in ${config.env} on ${config.httpsPort}`);
+});
 
 //Create unified server
  const unifiedServer = function(req, res){
