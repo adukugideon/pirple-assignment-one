@@ -2,9 +2,10 @@ const environments = {};
 
 //staging 
 environments.staging = {
-    'httpPort':3000,
+    'httpPort':8000,
     'httpsPort': 3001,
-    'env':'staging'
+    'env':'staging', 
+    'secret':'stagingSecret'
 }
 
 
@@ -12,7 +13,8 @@ environments.staging = {
 environments.production = {
     'httpPort':5000,
     'httpsPort': 5001,
-    'env':'production'
+    'env':'production',
+    'secret': 'productionSecret'
 }
 
 //check if cyrrent env is a string and return lowercase else just return an empty string
